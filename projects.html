@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projects | G. Harry Thurston</title>
   <link rel="stylesheet" href="styles.css" />
+  <!-- Preload gallery images -->
+  <link rel="preload" as="image" href="images/PedFacDash.png" />
+  <link rel="preload" as="image" href="webmaps/Waterdist1.png" />
+  <link rel="preload" as="image" href="webmaps/sewercollection1.png" />
+  <link rel="preload" as="image" href="webmaps/hydrantrepairdash.png" />
+  <link rel="preload" as="image" href="Layouts/Threesquares.jpg" />
+  <link rel="preload" as="image" href="webmaps/pubutil1.png" />
+  <link rel="preload" as="image" href="Layouts/Crandallpath.jpg" />
+  <link rel="preload" as="image" href="Layouts/Impervious.jpg" />
+  <link rel="preload" as="image" href="images/6.5ft-sea-level-rise.png" />
+  <link rel="preload" as="image" href="Layouts/Sidewalks.jpg" />
+  <link rel="preload" as="image" href="Layouts/sidewalkparcels.jpg" />
+  <link rel="preload" as="image" href="images/liberty-square-study-area.png" />
+  <link rel="preload" as="image" href="webmaps/pavedash.png" />
+  <link rel="preload" as="image" href="Layouts/reccenter.jpg" />
   <style>
     /* ── Theme (matches home page) ───────────────────────────── */
     :root {
@@ -156,6 +171,8 @@
       .fc-bar > div:nth-child(2),
       .fc-bar > div:nth-child(3) { display: none !important; }
       .fc-title { text-align: center; }
+      .hyd-desktop { display: none !important; }
+      .hyd-mobile { display: flex !important; }
     }
     @media (max-width: 520px) {
       .masonry { columns: 1; }
@@ -208,11 +225,37 @@
     </a>
 
     <a href="project-hydrants.html" class="fc-card">
-      <div class="fc-img" style="background:linear-gradient(160deg,#03293c 0%,#03445e 45%,#044e6e 70%,#03445e 88%,#03293c 100%); position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; gap:3rem; box-sizing:border-box;">
+      <!-- Desktop thumbnail: icon grid -->
+      <div class="fc-img hyd-desktop" style="background:linear-gradient(160deg,#03293c 0%,#03445e 45%,#044e6e 70%,#03445e 88%,#03293c 100%); position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:center; gap:1.5rem; padding:2rem 3rem; box-sizing:border-box;">
         <div style="position:absolute;width:180%;height:180%;left:-40%;top:-30%;background:radial-gradient(ellipse at 45% 55%,rgba(5,102,141,0.6) 0%,rgba(2,128,144,0.22) 42%,transparent 66%);filter:blur(55px);pointer-events:none;z-index:0;"></div>
-        <img src="images/hydthumbnail/red_hydrant.png"   style="width:130px;height:130px;flex-shrink:0;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.55));position:relative;z-index:1;" />
-        <img src="images/hydthumbnail/blue_hydrant.png"  style="width:150px;height:150px;flex-shrink:0;filter:drop-shadow(0 8px 24px rgba(0,0,0,0.6));position:relative;z-index:1;" />
-        <img src="images/hydthumbnail/green_hydrant.png" style="width:130px;height:130px;flex-shrink:0;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.55));position:relative;z-index:1;" />
+        <div style="position:absolute;width:160%;height:160%;left:10%;top:-20%;background:radial-gradient(ellipse at 72% 38%,rgba(2,128,144,0.48) 0%,rgba(0,168,150,0.16) 44%,transparent 68%);filter:blur(60px);pointer-events:none;z-index:0;"></div>
+        <div style="position:relative;z-index:1;display:flex; justify-content:space-around; align-items:center;">
+          <img src="images/hydthumbnail/red_hydrant.png"   style="width:92px;height:92px;flex-shrink:0;filter:drop-shadow(3px 3px 4px rgba(0,0,0,0.5));" />
+          <img src="images/hydthumbnail/blue_hydrant.png"  style="width:92px;height:92px;flex-shrink:0;filter:drop-shadow(3px 3px 4px rgba(0,0,0,0.5));" />
+          <img src="images/hydthumbnail/green_hydrant.png" style="width:92px;height:92px;flex-shrink:0;filter:drop-shadow(3px 3px 4px rgba(0,0,0,0.5));" />
+          <img src="images/hydthumbnail2.png"              style="width:92px;height:92px;flex-shrink:0;filter:drop-shadow(3px 3px 4px rgba(0,0,0,0.5));" />
+          <img src="images/hydthumbnail/blue_hydrant.png"  style="width:92px;height:92px;flex-shrink:0;filter:drop-shadow(3px 3px 4px rgba(0,0,0,0.5));" />
+          <img src="images/hydthumbnail/red_hydrant.png"   style="width:92px;height:92px;flex-shrink:0;filter:drop-shadow(3px 3px 4px rgba(0,0,0,0.5));" />
+          <img src="images/hydthumbnail2.png"              style="width:92px;height:92px;flex-shrink:0;filter:drop-shadow(3px 3px 4px rgba(0,0,0,0.5));" />
+          <img src="images/hydthumbnail/green_hydrant.png" style="width:92px;height:92px;flex-shrink:0;filter:drop-shadow(3px 3px 4px rgba(0,0,0,0.5));" />
+        </div>
+        <div style="position:relative;z-index:1;display:flex; justify-content:space-around; align-items:center;">
+          <img src="images/hydthumbnail/green_hydrant.png" style="width:92px;height:92px;flex-shrink:0;filter:drop-shadow(3px 3px 4px rgba(0,0,0,0.5));" />
+          <img src="images/hydthumbnail2.png"              style="width:92px;height:92px;flex-shrink:0;filter:drop-shadow(3px 3px 4px rgba(0,0,0,0.5));" />
+          <img src="images/hydthumbnail/blue_hydrant.png"  style="width:92px;height:92px;flex-shrink:0;filter:drop-shadow(3px 3px 4px rgba(0,0,0,0.5));" />
+          <img src="images/hydthumbnail/red_hydrant.png"   style="width:92px;height:92px;flex-shrink:0;filter:drop-shadow(3px 3px 4px rgba(0,0,0,0.5));" />
+          <img src="images/hydthumbnail2.png"              style="width:92px;height:92px;flex-shrink:0;filter:drop-shadow(3px 3px 4px rgba(0,0,0,0.5));" />
+          <img src="images/hydthumbnail/green_hydrant.png" style="width:92px;height:92px;flex-shrink:0;filter:drop-shadow(3px 3px 4px rgba(0,0,0,0.5));" />
+          <img src="images/hydthumbnail/red_hydrant.png"   style="width:92px;height:92px;flex-shrink:0;filter:drop-shadow(3px 3px 4px rgba(0,0,0,0.5));" />
+          <img src="images/hydthumbnail/blue_hydrant.png"  style="width:92px;height:92px;flex-shrink:0;filter:drop-shadow(3px 3px 4px rgba(0,0,0,0.5));" />
+        </div>
+      </div>
+      <!-- Mobile thumbnail: 3 centered icons -->
+      <div class="fc-img hyd-mobile" style="background:linear-gradient(160deg,#03293c 0%,#03445e 45%,#044e6e 70%,#03445e 88%,#03293c 100%); position:relative; overflow:hidden; display:none; align-items:center; justify-content:center; gap:3rem; box-sizing:border-box;">
+        <div style="position:absolute;width:180%;height:180%;left:-40%;top:-30%;background:radial-gradient(ellipse at 45% 55%,rgba(5,102,141,0.6) 0%,rgba(2,128,144,0.22) 42%,transparent 66%);filter:blur(55px);pointer-events:none;z-index:0;"></div>
+        <img src="images/hydthumbnail/red_hydrant.png"   style="width:110px;height:110px;flex-shrink:0;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.55));position:relative;z-index:1;" />
+        <img src="images/hydthumbnail/blue_hydrant.png"  style="width:130px;height:130px;flex-shrink:0;filter:drop-shadow(0 8px 24px rgba(0,0,0,0.6));position:relative;z-index:1;" />
+        <img src="images/hydthumbnail/green_hydrant.png" style="width:110px;height:110px;flex-shrink:0;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.55));position:relative;z-index:1;" />
       </div>
       <div class="fc-bar" style="display:grid; grid-template-columns:1fr 1fr 1fr; align-items:center; gap:2rem; padding:0.75rem 1.75rem;">
         <div class="fc-title">Hydrant Field Workflow</div>
