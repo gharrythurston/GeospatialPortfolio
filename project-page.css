@@ -1,0 +1,250 @@
+/* ── Project Detail Page Styles ────────────────────────────── */
+
+.proj-hero {
+  padding: 7rem 2rem 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.back-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 1rem; font-weight: 600;
+  color: var(--muted); margin-bottom: 1rem;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--teal); }
+.proj-num {
+  font-family: 'Lato', sans-serif;
+  font-size: 3.5rem; font-weight: 800;
+  color: var(--border-hi); line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.proj-page-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700; color: var(--white);
+  line-height: 1.15; margin-bottom: 1.25rem;
+}
+.proj-page-desc {
+  font-size: 1.05rem; color: var(--muted-hi);
+  font-weight: 300; line-height: 1.8;
+  max-width: 620px; margin-bottom: 1.5rem;
+}
+.proj-page-star {
+  display: flex; flex-direction: column; gap: 1.1rem;
+  max-width: 680px; margin-bottom: 1.75rem;
+}
+.star-item { display: flex; gap: 1rem; align-items: baseline; }
+.star-label {
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--teal);
+  min-width: 82px; padding-top: 0.18rem; flex-shrink: 0;
+}
+.star-item p {
+  font-size: 1rem; color: var(--muted-hi);
+  font-weight: 300; line-height: 1.75; margin: 0;
+}
+.proj-page-tags {
+  display: flex; flex-wrap: wrap; gap: 0.45rem;
+}
+
+/* ── Media Section ────────────────────────────────────────── */
+.proj-media {
+  padding: 0 2rem 5rem;
+}
+.proj-video-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.proj-video-pair .proj-video-main {
+  margin-bottom: 0;
+  aspect-ratio: 702 / 632;
+}
+.proj-video-pair .proj-video-main video {
+  width: 100%; height: 100%; display: block;
+  object-fit: cover;
+}
+.proj-video-main {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+}
+.proj-video-main video {
+  width: 100%; display: block;
+}
+
+.proj-phone-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  width: 85%;
+  margin: 0 auto;
+}
+.proj-phone-item {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+.proj-phone-item:hover { border-color: var(--border); }
+.proj-phone-item img {
+  width: 100%;
+  display: block;
+}
+
+.proj-gallery {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.proj-gallery.elk {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.proj-gal-item {
+  border-radius: var(--radius-sm);
+  overflow: hidden; cursor: pointer;
+  border: 1px solid var(--border);
+  position: relative;
+  transition: border-color 0.2s;
+}
+.proj-gal-item:hover { border-color: var(--border-hi); }
+.proj-gal-item img {
+  width: 100%; height: 200px;
+  object-fit: cover; object-position: top;
+  display: block;
+  transition: transform 0.25s ease;
+}
+.proj-gal-item:hover img { transform: scale(1.04); }
+.proj-gal-item.crop-tight img { transform: scale(1.07); }
+.proj-gal-item.crop-tight:hover img { transform: scale(1.11); }
+.gal-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 0.4rem 0.6rem;
+  background: linear-gradient(transparent, rgba(3,68,94,0.85));
+  font-size: 0.7rem; font-weight: 700;
+  color: #ffffff; letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+}
+
+/* ── Code Blocks ──────────────────────────────────────────── */
+.proj-code {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+.code-block {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  height: 200px;
+  position: relative;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.25s ease;
+}
+.code-block:hover { border-color: var(--border-hi); transform: scale(1.04); }
+.code-block::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 70px;
+  background: linear-gradient(transparent, #03445e);
+  pointer-events: none;
+}
+
+/* ── Code Modal ───────────────────────────────────────────── */
+#code-modal {
+  display: none;
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(0,0,0,0.75);
+  align-items: center; justify-content: center;
+  padding: 2rem;
+}
+#code-modal.open { display: flex; }
+.code-modal-inner {
+  background: var(--surface);
+  border: 1px solid var(--border-hi);
+  border-radius: var(--radius);
+  max-width: 820px; width: 100%;
+  max-height: 85vh;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.code-modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.65rem 1rem;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.code-modal-header .modal-meta {
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.code-modal-close {
+  background: none; border: none; cursor: pointer;
+  color: var(--muted); font-size: 1rem; line-height: 1;
+  transition: color 0.2s; padding: 0.2rem;
+}
+.code-modal-close:hover { color: var(--white); }
+.code-modal-body {
+  overflow-y: auto; overflow-x: auto;
+  padding: 1.25rem;
+  flex: 1;
+}
+.code-modal-body pre { margin: 0; }
+.code-modal-body code {
+  font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: #c9d1d9;
+  white-space: pre;
+}
+.code-block-header {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.65rem 1rem;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid var(--border);
+}
+.code-block-header .code-lang {
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--teal);
+}
+.code-block-header .code-title {
+  font-size: 0.78rem; font-weight: 500;
+  color: var(--muted-hi);
+}
+.code-block pre {
+  margin: 0;
+  padding: 1.25rem 1.25rem;
+  overflow-x: auto;
+  background: transparent;
+}
+.code-block code {
+  font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: #c9d1d9;
+  white-space: pre;
+}
+
+/* syntax tones */
+.code-block code .kw  { color: #ff7b72; }   /* keywords */
+.code-block code .fn  { color: #79c0ff; }   /* functions / methods */
+.code-block code .st  { color: #a5d6ff; }   /* strings */
+.code-block code .cm  { color: #a8b5c4; font-style: italic; } /* comments */
+.code-block code .nm  { color: var(--teal); } /* numbers / builtins */
+
+/* ── Detail / STAR Section ────────────────────────────────── */
+.proj-detail {
+  padding: 0 2rem 5rem;
+}
+.proj-detail .proj-page-star {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 680px) {
+  .proj-gallery { grid-template-columns: 1fr; }
+  .proj-gallery.elk { grid-template-columns: 1fr 1fr; }
+}

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Urban Tree Management Dashboard | G. Harry Thurston</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="project-page.css" />
+  <style>
+    :root {
+      --bg:        #252422;
+      --surface:   #403d39;
+      --card:      rgba(64,61,57,0.45);
+      --white:     #fffcf2;
+      --muted-hi:  #ccc5b9;
+      --muted:     rgba(204,197,185,0.55);
+      --teal:      #D93530;
+      --border:    rgba(204,197,185,0.1);
+      --border-hi: rgba(217,53,48,0.45);
+      --shadow-md: 0 8px 32px rgba(0,0,0,0.45);
+    }
+    body { background: #040d20; }
+    nav  { background: rgba(4,13,32,0.92); }
+    .code-modal-body code .kw  { color: #ff7b72; }
+    .code-modal-body code .fn  { color: #79c0ff; }
+    .code-modal-body code .st  { color: #a5d6ff; }
+    .code-modal-body code .cm  { color: #a8b5c4; font-style: italic; }
+    .code-modal-body code .nm  { color: var(--teal); }
+    .tree-arcade-img {
+      cursor: pointer;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.25s ease, border-color 0.25s, box-shadow 0.25s;
+    }
+    .tree-arcade-img:hover {
+      transform: scale(1.05);
+      border-color: var(--border-hi);
+      box-shadow: var(--shadow-md);
+    }
+    .tree-arcade-img img {
+      width: 100%; display: block;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">G. Harry <span>Thurston</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="proj-hero">
+  <a href="projects.html" class="back-link">&larr; All Projects</a>
+  <h1 class="proj-page-title" style="white-space:nowrap;">Urban Tree Management Dashboard</h1>
+  <p style="margin:1.5rem auto 0.4rem; color:var(--teal); font-size:0.8rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; max-width:900px;">Overview</p>
+  <p style="max-width:900px; margin:0 auto 0; color:var(--muted-hi); font-size:1.02rem; line-height:1.7; font-weight:300;">The city collected tree condition and location data from a third party service in 2022. Data was static and needed to be updated to support planning initiatives for both public and internal stakeholders and retain the city's status as a climate smart community.</p>
+  <p style="margin:1.5rem auto 0.4rem; color:var(--teal); font-size:0.8rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; max-width:900px;">Task</p>
+  <p style="max-width:900px; margin:0 auto 0; color:var(--muted-hi); font-size:1.02rem; line-height:1.7; font-weight:300;">Create a process in Field Maps Mobile that tracks tree plantings, removals, and inspections to keep data current and accessible. This system needs to be easy to understand for non-GIS users, built into a dashboard that is shared both publicly and privately, and autonomous.</p>
+</div>
+
+<section class="proj-media">
+  <div class="container">
+    <div class="proj-video-main">
+      <video controls muted src="images/Maintdashtour.mp4"></video>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1.3fr; gap:2rem; margin-top:1.5rem; margin-bottom:1.5rem; align-items:stretch;">
+      <div class="star-item" style="flex-direction:column; align-items:flex-start;">
+        <span class="star-label">Process</span>
+        <p style="font-size:1rem; color:var(--muted-hi); font-weight:300; line-height:1.75; margin:0;">I downloaded the data, cleaned it and split layers between planting sites and tree sites. I created three separate tables for inspection records, sidewalk assessments, and tree maintenance then connected them to the tree layer with one to many relationship classes. From here I configured forms in Field Maps Designer for each table to control data added, allowing workers to add updates from field work. At this point I still had to manually update tree edits using a field calculation script that I wrote in Arcade. In order for the process to be fully autonomous, I needed to rewrite the code in a notebook that could be scheduled.</p>
+      </div>
+      <div class="tree-arcade-img" onclick="openLightbox('webmaps/treearcade.png')">
+        <img src="webmaps/treearcade.png" alt="Tree Arcade Automation" style="width:100%; height:100%; object-fit:cover;" />
+      </div>
+    </div>
+
+    <div class="proj-code">
+
+      <div class="code-block" onclick="openCodeModal(0)">
+        <div class="code-block-header">
+          <span class="code-lang">ArcGIS API For Python</span>
+          <span class="code-title">Tree Status Automation</span>
+        </div>
+        <pre><code><span class="kw">from</span> arcgis.gis <span class="kw">import</span> GIS
+
+<span class="cm"># Connect once</span>
+gis = <span class="fn">GIS</span>(<span class="st">"home"</span>)
+map_lyrs = gis.content.<span class="fn">get</span>(<span class="st">"********************796337"</span>)
+tree_lyr = map_lyrs.layers[<span class="nm">1</span>]
+maint_table = map_lyrs.tables[<span class="nm">2</span>]
+
+<span class="cm"># STEP 1: Link new maintenance records</span>
+<span class="fn">print</span>(<span class="st">"Step 1: Linking new maintenance records..."</span>)
+trees = tree_lyr.<span class="fn">query</span>(where=<span class="st">"1=1"</span>, out_fields=<span class="st">"OBJECTID,GlobalID"</span>)
+updates = []
+
+<span class="kw">for</span> tree <span class="kw">in</span> trees.features:
+    <span class="kw">try</span>:
+        related = tree_lyr.<span class="fn">query_related_records</span>(
+            object_ids=<span class="fn">str</span>(tree.attributes[<span class="st">'OBJECTID'</span>]),
+            relationship_id=<span class="nm">2</span>,
+            out_fields=<span class="st">"OBJECTID,ParentGlobalID"</span>
+        )
+
+        groups = related.<span class="fn">get</span>(<span class="st">'relatedRecordGroups'</span>, [])
+        <span class="kw">if</span> groups <span class="kw">and</span> groups[<span class="nm">0</span>].<span class="fn">get</span>(<span class="st">'relatedRecords'</span>):
+            <span class="kw">for</span> maint <span class="kw">in</span> groups[<span class="nm">0</span>][<span class="st">'relatedRecords'</span>]:
+                <span class="kw">if not</span> maint[<span class="st">'attributes'</span>].<span class="fn">get</span>(<span class="st">'ParentGlobalID'</span>):
+                    updates.<span class="fn">append</span>({
+                        <span class="st">"attributes"</span>: {
+                            <span class="st">"OBJECTID"</span>: maint[<span class="st">'attributes'</span>][<span class="st">'OBJECTID'</span>],
+                            <span class="st">"ParentGlobalID"</span>: tree.attributes[<span class="st">'GlobalID'</span>]
+                        }
+                    })
+    <span class="kw">except</span>:
+        <span class="kw">pass</span>
+
+<span class="kw">if</span> updates:
+    result = maint_table.<span class="fn">edit_features</span>(updates=updates)
+    success = <span class="fn">sum</span>(r[<span class="st">'success'</span>] <span class="kw">for</span> r <span class="kw">in</span> result[<span class="st">'updateResults'</span>])
+    <span class="fn">print</span>(<span class="st">f"  ✓ Linked {success} new maintenance records"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"  No new records to link"</span>)
+
+<span class="cm"># STEP 2: Update tree statuses</span>
+<span class="fn">print</span>(<span class="st">"\nStep 2: Updating tree statuses..."</span>)
+trees = tree_lyr.<span class="fn">query</span>(where=<span class="st">"1=1"</span>, out_fields=<span class="st">"OBJECTID,GlobalID,SPP_com"</span>)
+maint_records = maint_table.<span class="fn">query</span>(where=<span class="st">"1=1"</span>, out_fields=<span class="st">"ParentGlobalID,Maintenancetype,Finish_Date"</span>)
+
+<span class="cm"># Build lookup</span>
+maint_by_tree = {}
+<span class="kw">for</span> record <span class="kw">in</span> maint_records.features:
+    parent_id = record.attributes.<span class="fn">get</span>(<span class="st">'ParentGlobalID'</span>)
+    <span class="kw">if</span> parent_id:
+        <span class="kw">if</span> parent_id <span class="kw">not in</span> maint_by_tree:
+            maint_by_tree[parent_id] = []
+        maint_by_tree[parent_id].<span class="fn">append</span>(record.attributes)
+
+<span class="cm"># Process updates</span>
+updates = []
+<span class="kw">for</span> tree <span class="kw">in</span> trees.features:
+    tree_globalid = tree.attributes[<span class="st">'GlobalID'</span>]
+    current = tree.attributes[<span class="st">'SPP_com'</span>]
+
+    <span class="kw">if</span> tree_globalid <span class="kw">in</span> maint_by_tree:
+        latest = <span class="fn">max</span>(maint_by_tree[tree_globalid], key=<span class="kw">lambda</span> r: r.<span class="fn">get</span>(<span class="st">'Finish_Date'</span>) <span class="kw">or</span> <span class="nm">0</span>)
+        mtype = latest.<span class="fn">get</span>(<span class="st">'Maintenancetype'</span>)
+
+        <span class="kw">if</span> mtype == <span class="st">"Tree Removal"</span>:
+            new = <span class="st">"Stump"</span>
+        <span class="kw">elif</span> mtype == <span class="st">"Stump Removal"</span>:
+            new = <span class="st">"Removed"</span>
+        <span class="kw">else</span>:
+            new = current
+
+        <span class="kw">if</span> new != current:
+            updates.<span class="fn">append</span>({<span class="st">"attributes"</span>: {<span class="st">"OBJECTID"</span>: tree.attributes[<span class="st">'OBJECTID'</span>], <span class="st">"SPP_com"</span>: new}})
+
+<span class="kw">if</span> updates:
+    result = tree_lyr.<span class="fn">edit_features</span>(updates=updates)
+    success = <span class="fn">sum</span>(r[<span class="st">'success'</span>] <span class="kw">for</span> r <span class="kw">in</span> result[<span class="st">'updateResults'</span>])
+    <span class="fn">print</span>(<span class="st">f"  ✓ Updated {success} trees"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="st">"  No updates needed"</span>)
+
+<span class="fn">print</span>(<span class="st">"\n✓ Complete!"</span>)</code></pre>
+      </div>
+
+      <div class="code-block" onclick="openCodeModal(1)">
+        <div class="code-block-header">
+          <span class="code-lang">ArcGIS API For Python</span>
+          <span class="code-title">Removed Tree Processor</span>
+        </div>
+        <pre><code><span class="kw">from</span> arcgis.gis <span class="kw">import</span> GIS
+<span class="kw">from</span> datetime <span class="kw">import</span> datetime
+<span class="kw">import</span> csv
+
+<span class="cm"># Connect</span>
+gis = <span class="fn">GIS</span>(<span class="st">"home"</span>)
+map_lyrs = gis.content.<span class="fn">get</span>(<span class="st">"********************796337"</span>)
+planting_lyr = map_lyrs.layers[<span class="nm">0</span>]
+tree_lyr = map_lyrs.layers[<span class="nm">1</span>]
+
+<span class="fn">print</span>(<span class="st">"Finding removed trees..."</span>)
+
+<span class="cm"># Find all trees marked as "Removed"</span>
+removed_trees = tree_lyr.<span class="fn">query</span>(
+    where=<span class="st">"SPP_com = 'Removed'"</span>,
+    out_fields=<span class="st">"*"</span>,
+    return_geometry=<span class="nm">True</span>
+)
+
+<span class="fn">print</span>(<span class="st">f"Found {len(removed_trees.features)} removed trees"</span>)
+
+<span class="kw">if</span> <span class="fn">len</span>(removed_trees.features) == <span class="nm">0</span>:
+    <span class="fn">print</span>(<span class="st">"No trees to process!"</span>)
+<span class="kw">else</span>:
+    <span class="cm"># STEP 1: Export to spreadsheet for records</span>
+    <span class="fn">print</span>(<span class="st">"\nStep 1: Exporting removed trees to spreadsheet..."</span>)
+
+    timestamp = datetime.<span class="fn">now</span>().<span class="fn">strftime</span>(<span class="st">"%Y%m%d_%H%M%S"</span>)
+    csv_filename = <span class="st">f"/arcgis/home/RemovedTrees.csv"</span>
+
+    <span class="cm"># Get field names</span>
+    field_names = [f[<span class="st">'name'</span>] <span class="kw">for</span> f <span class="kw">in</span> tree_lyr.properties[<span class="st">'fields'</span>]]
+    field_names.<span class="fn">extend</span>([<span class="st">'removal_date'</span>, <span class="st">'X'</span>, <span class="st">'Y'</span>])
+
+    <span class="cm"># Write CSV</span>
+    <span class="kw">with</span> <span class="fn">open</span>(csv_filename, <span class="st">'w'</span>, newline=<span class="st">''</span>) <span class="kw">as</span> csvfile:
+        writer = csv.<span class="fn">DictWriter</span>(csvfile, fieldnames=field_names)
+        writer.<span class="fn">writeheader</span>()
+
+        <span class="kw">for</span> tree <span class="kw">in</span> removed_trees.features:
+            row = tree.attributes.<span class="fn">copy</span>()
+            row[<span class="st">'removal_date'</span>] = datetime.<span class="fn">now</span>().<span class="fn">strftime</span>(<span class="st">"%Y-%m-%d"</span>)
+            row[<span class="st">'X'</span>] = tree.geometry[<span class="st">'x'</span>]
+            row[<span class="st">'Y'</span>] = tree.geometry[<span class="st">'y'</span>]
+            writer.<span class="fn">writerow</span>(row)
+
+    <span class="fn">print</span>(<span class="st">f"  ✓ Saved to {csv_filename}"</span>)
+
+    <span class="cm"># STEP 2: Create planting sites</span>
+    <span class="fn">print</span>(<span class="st">"\nStep 2: Creating planting sites..."</span>)
+
+    new_planting_sites = []
+    <span class="kw">for</span> tree <span class="kw">in</span> removed_trees.features:
+        new_site = {
+            <span class="st">"attributes"</span>: {
+                <span class="st">"SPP_com"</span>: <span class="st">"Vacant site medium"</span>,
+                <span class="st">"Street"</span>: tree.attributes.<span class="fn">get</span>(<span class="st">'Street'</span>),
+                <span class="st">"Address"</span>: tree.attributes.<span class="fn">get</span>(<span class="st">'Address'</span>)
+            },
+            <span class="st">"geometry"</span>: tree.geometry
+        }
+        new_planting_sites.<span class="fn">append</span>(new_site)
+
+    result = planting_lyr.<span class="fn">edit_features</span>(adds=new_planting_sites)
+    added = <span class="fn">sum</span>(r[<span class="st">'success'</span>] <span class="kw">for</span> r <span class="kw">in</span> result[<span class="st">'addResults'</span>])
+    <span class="fn">print</span>(<span class="st">f"  ✓ Created {added} planting sites"</span>)
+
+    <span class="cm"># STEP 3: Delete removed trees</span>
+    <span class="fn">print</span>(<span class="st">"\nStep 3: Deleting removed trees..."</span>)
+
+    tree_oids = [tree.attributes[<span class="st">'OBJECTID'</span>] <span class="kw">for</span> tree <span class="kw">in</span> removed_trees.features]
+    oid_string = <span class="st">","</span>.<span class="fn">join</span>(<span class="fn">str</span>(oid) <span class="kw">for</span> oid <span class="kw">in</span> tree_oids)
+
+    result = tree_lyr.<span class="fn">edit_features</span>(deletes=oid_string)
+    deleted = <span class="fn">sum</span>(r[<span class="st">'success'</span>] <span class="kw">for</span> r <span class="kw">in</span> result[<span class="st">'deleteResults'</span>])
+    <span class="fn">print</span>(<span class="st">f"  ✓ Deleted {deleted} trees"</span>)
+
+    <span class="fn">print</span>(<span class="st">f"\n✓ Complete! Processed {deleted} removed trees"</span>)
+    <span class="fn">print</span>(<span class="st">f"   - Exported to: {csv_filename}"</span>)
+    <span class="fn">print</span>(<span class="st">f"   - Created {added} planting sites"</span>)
+    <span class="fn">print</span>(<span class="st">f"   - Deleted {deleted} trees"</span>)</code></pre>
+      </div>
+
+    </div>
+    <div style="margin-top:1.5rem;">
+      <p style="font-size:1rem; color:var(--muted-hi); font-weight:300; line-height:1.75; margin:0 0 0.4rem;">Using ArcGIS API for Python I developed two scripts to update the symbology of trees based on maintenance records submitted by DPW. If a tree is removed, symbology changes to a stump, if a stump is removed, a new planting site is added.</p>
+    </div>
+    <div style="margin-top:1.5rem;">
+      <p style="color:var(--teal); font-size:0.8rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.4rem;">Result</p>
+      <p style="font-size:1rem; color:var(--muted-hi); font-weight:300; line-height:1.75; margin:0;">Two new maps created for editing and viewing. New interactive, public-facing dashboard shared on the city's hub site. New workflow that maintains quality data and provides stakeholders with current information to support planning initiatives.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 G. Harry Thurston · San Francisco, CA · <a href="mailto:g.harrythurston@gmail.com" style="color:inherit;">g.harrythurston@gmail.com</a></p>
+</footer>
+
+<div id="code-modal" onclick="closeCodeModal(event)">
+  <div class="code-modal-inner">
+    <div class="code-modal-header">
+      <div class="modal-meta">
+        <span class="code-lang" id="modal-lang"></span>
+        <span class="code-title" id="modal-title"></span>
+      </div>
+      <button class="code-modal-close" onclick="closeCodeModal()">✕</button>
+    </div>
+    <div class="code-modal-body">
+      <pre><code id="modal-code"></code></pre>
+    </div>
+  </div>
+</div>
+
+<div id="lightbox" onclick="closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="" />
+</div>
+
+<script>
+  const codeBlocks = [
+    {
+      lang: 'ArcGIS API For Python',
+      title: 'Tree Status Automation',
+      code: document.querySelectorAll('.code-block')[0]
+    },
+    {
+      lang: 'ArcGIS API For Python',
+      title: 'Removed Tree Processor',
+      code: document.querySelectorAll('.code-block')[1]
+    }
+  ];
+
+  function openCodeModal(index) {
+    const block = codeBlocks[index];
+    document.getElementById('modal-lang').textContent = block.lang;
+    document.getElementById('modal-title').textContent = block.title;
+    document.getElementById('modal-code').innerHTML =
+      block.code.querySelector('code').innerHTML;
+    document.getElementById('code-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCodeModal(e) {
+    if (e && e.target !== document.getElementById('code-modal')) return;
+    document.getElementById('code-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeLightbox();
+      document.getElementById('code-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+</script>
+
+</body>
+</html>

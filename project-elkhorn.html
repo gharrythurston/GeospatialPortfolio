@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elkhorn Fire Analysis | G. Harry Thurston</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="project-page.css" />
+  <style>
+    :root {
+      --bg:        #252422;
+      --surface:   #403d39;
+      --card:      rgba(64,61,57,0.45);
+      --white:     #fffcf2;
+      --muted-hi:  #ccc5b9;
+      --muted:     rgba(204,197,185,0.55);
+      --teal:      #D93530;
+      --border:    rgba(204,197,185,0.1);
+      --border-hi: rgba(217,53,48,0.45);
+      --shadow-md: 0 8px 32px rgba(0,0,0,0.45);
+    }
+    body { background: #040d20; }
+    nav  { background: rgba(4,13,32,0.92); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">G. Harry <span>Thurston</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="proj-hero">
+  <a href="projects.html" class="back-link">&larr; All Projects</a>
+  <h1 class="proj-page-title" style="white-space:nowrap;">Elkhorn Fire Analysis</h1>
+  <p style="margin:1.5rem auto 0.4rem; color:var(--teal); font-size:0.8rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; max-width:900px;">Overview</p>
+  <p style="max-width:900px; margin:0 auto 0; color:var(--muted-hi); font-size:1.02rem; line-height:1.7; font-weight:300;">For my senior year Satellite Climatology final we had to use ENVI to create spectral images of a project of our choice. I chose to analyze a wildfire that I paddled past the previous summer on a river trip in Idaho.</p>
+</div>
+
+<section class="proj-media">
+  <div class="container">
+    <div class="proj-gallery">
+      <div class="proj-gal-item" onclick="openLightbox('images/072223RGB.JPG')">
+        <img src="images/072223RGB.JPG" alt="RGB Before Fire (July 2023)" style="object-position: 35% 48%; filter: brightness(1.3);" />
+        <span class="gal-label">RGB — Jul 2023</span>
+      </div>
+      <div class="proj-gal-item" onclick="openLightbox('images/08112023RGB.JPG')">
+        <img src="images/08112023RGB.JPG" alt="RGB After Fire (Aug 2023)" style="object-position: 35% 48%; filter: brightness(1.3);" />
+        <span class="gal-label">RGB — Aug 2023</span>
+      </div>
+      <div class="proj-gal-item" onclick="openLightbox('images/NDVIbefore.JPG')">
+        <img src="images/NDVIbefore.JPG" alt="NDVI Before Fire" />
+        <span class="gal-label">NDVI — Before</span>
+      </div>
+      <div class="proj-gal-item crop-tight" onclick="openLightbox('images/NDVIafter.JPG')">
+        <img src="images/NDVIafter.JPG" alt="NDVI After Fire" />
+        <span class="gal-label">NDVI — After</span>
+      </div>
+      <div class="proj-gal-item crop-tight" onclick="openLightbox('images/NBR.jpg')">
+        <img src="images/NBR.jpg" alt="Normalized Burn Ratio" />
+        <span class="gal-label">Normalized Burn Ratio</span>
+      </div>
+      <div class="proj-gal-item crop-tight" onclick="openLightbox('images/BAI.JPG')">
+        <img src="images/BAI.JPG" alt="Burn Area Index" />
+        <span class="gal-label">Burn Area Index</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proj-detail">
+  <div class="proj-page-star">
+    <div class="star-item" style="flex-direction:column; align-items:flex-start;">
+      <span class="star-label">Process</span>
+      <p>I identified the study area then downloaded red, blue, green, and near infrared bands from the Sentinel-2 satellite. Using the build band stack tool I created two RGB before and after pictures of the fire. These served as my base for analysis. I made NDVIs, a burn area index, and a normalized burn ratio using spectral functions in ENVI to assess burn severity.</p>
+    </div>
+    <div class="star-item" style="flex-direction:column; align-items:flex-start;">
+      <span class="star-label">Result</span>
+      <p>I produced a written report containing charts and maps to support my analysis. I researched historic climate data and recent climatic trends that allowed this fire to burn over 25,000 acres and consume everything in its path within a nine hour timeframe.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 G. Harry Thurston · San Francisco, CA · <a href="mailto:g.harrythurston@gmail.com" style="color:inherit;">g.harrythurston@gmail.com</a></p>
+</footer>
+
+<div id="lightbox" onclick="closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="" />
+</div>
+
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+
+</body>
+</html>

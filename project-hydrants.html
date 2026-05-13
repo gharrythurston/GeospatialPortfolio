@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hydrant Flushing Workflow | G. Harry Thurston</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="project-page.css" />
+  <style>
+    :root {
+      --bg:        #252422;
+      --surface:   #403d39;
+      --card:      rgba(64,61,57,0.45);
+      --white:     #fffcf2;
+      --muted-hi:  #ccc5b9;
+      --muted:     rgba(204,197,185,0.55);
+      --teal:      #D93530;
+      --border:    rgba(204,197,185,0.1);
+      --border-hi: rgba(217,53,48,0.45);
+      --shadow-md: 0 8px 32px rgba(0,0,0,0.45);
+    }
+    body { background: #040d20; }
+    nav  { background: rgba(4,13,32,0.92); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">G. Harry <span>Thurston</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="proj-hero">
+  <a href="projects.html" class="back-link">&larr; All Projects</a>
+  <h1 class="proj-page-title" style="white-space:nowrap;">Glens Falls Hydrants</h1>
+  <p style="margin:1.5rem auto 0.4rem; color:var(--teal); font-size:0.8rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; max-width:900px;">Overview</p>
+  <p style="max-width:900px; margin:0 auto 0; color:var(--muted-hi); font-size:1.02rem; line-height:1.7; font-weight:300;">Many field crew members were new to the hydrant flushing process and struggled to efficiently clear the system during biannual flushings. Two teams simultaneously flushed from opposite sides of the city and to properly remove build ups, they needed to be coordinated and in communication.</p>
+</div>
+
+<section class="proj-media" style="padding-bottom:1.5rem;">
+  <div class="container">
+    <div class="proj-video-pair" style="width:85%; margin:0 auto;">
+      <div class="proj-video-main" style="position:relative;">
+        <video id="vid1" autoplay muted playsinline disablepictureinpicture src="images/hydrants.mp4" style="display:block;"></video>
+        <button class="replay-btn" id="replay1" onclick="replayVideo('vid1','replay1')" style="display:none;">&#9654; Replay</button>
+      </div>
+      <div class="proj-video-main" style="position:relative;">
+        <video id="vid2" autoplay muted playsinline disablepictureinpicture src="images/hydrant_repairs_animation_3.mp4" style="display:block;"></video>
+        <button class="replay-btn" id="replay2" onclick="replayVideo('vid2','replay2')" style="display:none;">&#9654; Replay</button>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:1.5rem; margin-bottom:1.5rem; align-items:center;">
+      <div style="display:flex; flex-direction:column; gap:1.5rem;">
+        <div class="star-item" style="flex-direction:column; align-items:flex-start;">
+          <span class="star-label">Task</span>
+          <p style="font-size:1rem; color:var(--muted-hi); font-weight:300; line-height:1.75; margin:0;">Create a new process to coordinate teams in the field and keep managers informed on flushings happening in real time. This process must keep records associated with each hydrant to track flushing information over time and observe changes in each flushing period. Crew members will collect data on hydrant condition for future repairs. Repair information will be pushed to a new dashboard management can use to delegate field operations.</p>
+        </div>
+        <div class="star-item" style="flex-direction:column; align-items:flex-start;">
+          <span class="star-label">Process</span>
+          <p style="font-size:1rem; color:var(--muted-hi); font-weight:300; line-height:1.75; margin:0;">I symbolized city data as red hydrants on a map and added an inspection table connected to the layer with a one to many relationship class. I created a layer from the inspection table and symbolized points as green hydrants. Using Field Maps Designer I created a form for the inspection layer that simplifies flushing and repair fields. After crew members submit a record, the inspection layer displays over the hydrant layer as green hydrants. If a hydrant is damaged, new fields pop up prompting crew members for the type of damage and priority of the repair. This information is pushed to the hydrant repair dashboard where management can download and create work orders for repairs.</p>
+        </div>
+      </div>
+      <div onclick="openWorkflowModal()" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:1.25rem 1.25rem 1rem; backdrop-filter:blur(12px); width:100%; cursor:pointer; transition:border-color 0.22s, box-shadow 0.22s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.3)';this.style.boxShadow='0 4px 24px rgba(0,0,0,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.boxShadow='none'">
+      <div style="font-size:0.95rem; font-weight:500; color:rgba(255,255,255,0.85); text-align:center; margin-bottom:0.75rem; letter-spacing:0.03em; display:flex; align-items:center; justify-content:center; gap:0.5rem;">Hydrant flushing &amp; repair workflow <span style="font-size:0.75rem; color:rgba(255,255,255,0.4);">&#x26F6;</span></div>
+      <svg width="100%" viewBox="0 0 680 720" role="img" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Sans',sans-serif;">
+        <title>Hydrant flushing and repair workflow</title>
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <g>
+          <rect x="160" y="30" width="320" height="60" rx="8" fill="#2998ba" fill-opacity="0.25" stroke="#2998ba" stroke-opacity="0.6" stroke-width="0.5"/>
+          <text font-size="14" font-weight="500" x="320" y="50" text-anchor="middle" dominant-baseline="central" fill="#5dc4e0">Hydrant feature layer</text>
+          <text font-size="12" x="320" y="72" text-anchor="middle" dominant-baseline="central" fill="#2998ba">503 hydrants · base data</text>
+        </g>
+        <line x1="320" y1="90" x2="320" y2="134" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <g>
+          <rect x="160" y="136" width="320" height="60" rx="8" fill="#2998ba" fill-opacity="0.25" stroke="#2998ba" stroke-opacity="0.6" stroke-width="0.5"/>
+          <text font-size="14" font-weight="500" x="320" y="156" text-anchor="middle" dominant-baseline="central" fill="#5dc4e0">Flushing web map</text>
+          <text font-size="12" x="320" y="178" text-anchor="middle" dominant-baseline="central" fill="#2998ba">Hydrant layer + inspection table (1:M)</text>
+        </g>
+        <line x1="320" y1="196" x2="320" y2="240" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <g>
+          <rect x="160" y="242" width="320" height="60" rx="8" fill="#e67e22" fill-opacity="0.2" stroke="#e67e22" stroke-opacity="0.5" stroke-width="0.5"/>
+          <text font-size="14" font-weight="500" x="320" y="262" text-anchor="middle" dominant-baseline="central" fill="#f0a868">Field Maps forms</text>
+          <text font-size="12" x="320" y="284" text-anchor="middle" dominant-baseline="central" fill="#e67e22">Designed for inspection table</text>
+        </g>
+        <line x1="320" y1="302" x2="320" y2="346" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <g>
+          <rect x="160" y="348" width="320" height="60" rx="8" fill="#e67e22" fill-opacity="0.2" stroke="#e67e22" stroke-opacity="0.5" stroke-width="0.5"/>
+          <text font-size="14" font-weight="500" x="320" y="368" text-anchor="middle" dominant-baseline="central" fill="#f0a868">Field crews submit flushing data</text>
+          <text font-size="12" x="320" y="390" text-anchor="middle" dominant-baseline="central" fill="#e67e22">Green points overlay red in real time</text>
+        </g>
+        <line x1="205" y1="408" x2="205" y2="458" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <line x1="440" y1="408" x2="440" y2="458" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <text font-size="12" x="173" y="440" text-anchor="end" dominant-baseline="central" fill="rgba(255,255,255,0.4)" font-style="italic">No damage</text>
+        <text font-size="12" x="472" y="440" text-anchor="start" dominant-baseline="central" fill="rgba(255,255,255,0.4)" font-style="italic">Damaged</text>
+        <g>
+          <rect x="120" y="460" width="170" height="44" rx="8" fill="#2998ba" fill-opacity="0.25" stroke="#2998ba" stroke-opacity="0.6" stroke-width="0.5"/>
+          <text font-size="14" font-weight="500" x="205" y="482" text-anchor="middle" dominant-baseline="central" fill="#5dc4e0">Flushing complete</text>
+        </g>
+        <path d="M120 482 L60 482 L60 58 L158 58" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <text font-size="12" x="48" y="270" text-anchor="middle" dominant-baseline="central" fill="rgba(255,255,255,0.35)" font-style="italic" transform="rotate(-90, 48, 270)">updates layer</text>
+        <g>
+          <rect x="320" y="460" width="240" height="60" rx="8" fill="#e67e22" fill-opacity="0.2" stroke="#e67e22" stroke-opacity="0.5" stroke-width="0.5"/>
+          <text font-size="14" font-weight="500" x="440" y="480" text-anchor="middle" dominant-baseline="central" fill="#f0a868">Damage fields appear</text>
+          <text font-size="12" x="440" y="502" text-anchor="middle" dominant-baseline="central" fill="#e67e22">Type + repair priority</text>
+        </g>
+        <line x1="440" y1="520" x2="440" y2="564" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <g>
+          <rect x="320" y="566" width="240" height="60" rx="8" fill="#2998ba" fill-opacity="0.25" stroke="#2998ba" stroke-opacity="0.6" stroke-width="0.5"/>
+          <text font-size="14" font-weight="500" x="440" y="586" text-anchor="middle" dominant-baseline="central" fill="#5dc4e0">Hydrant repair web map</text>
+          <text font-size="12" x="440" y="608" text-anchor="middle" dominant-baseline="central" fill="#2998ba">Symbolized by repair priority</text>
+        </g>
+        <line x1="440" y1="626" x2="440" y2="660" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <g>
+          <rect x="320" y="662" width="240" height="44" rx="8" fill="#f1c40f" fill-opacity="0.2" stroke="#f1c40f" stroke-opacity="0.45" stroke-width="0.5"/>
+          <text font-size="14" font-weight="500" x="440" y="684" text-anchor="middle" dominant-baseline="central" fill="#f1c40f">Repairs dashboard</text>
+        </g>
+        <g transform="translate(395, 2)">
+          <rect width="8" height="8" rx="2" fill="#2998ba" opacity="0.7"/>
+          <text font-size="12" x="12" y="8" fill="rgba(255,255,255,0.45)">GIS data</text>
+          <rect x="65" width="8" height="8" rx="2" fill="#e67e22" opacity="0.7"/>
+          <text font-size="12" x="77" y="8" fill="rgba(255,255,255,0.45)">Field</text>
+          <rect x="110" width="8" height="8" rx="2" fill="#f1c40f" opacity="0.7"/>
+          <text font-size="12" x="122" y="8" fill="rgba(255,255,255,0.45)">Mgmt</text>
+        </g>
+      </svg>
+      </div>
+    </div>
+
+    <div class="proj-phone-row">
+      <div class="proj-phone-item"><img src="images/hyd11.jpg" alt="Field Maps hydrant map view" /></div>
+      <div class="proj-phone-item"><img src="images/hyd2.jpg" alt="Hydrant detail and flushing report" /></div>
+      <div class="proj-phone-item"><img src="images/hyd3.jpg" alt="Inspection record closing conditions" /></div>
+      <div class="proj-phone-item"><img src="images/hyd4.jpg" alt="Inspection record hydrant information" /></div>
+    </div>
+    <p style="font-size:1rem; color:var(--muted-hi); font-weight:300; line-height:1.75; margin:1.5rem auto 0; max-width:800px;">I led two training sessions for water and road crews to use the Field Maps Mobile during the flushing and repair process. Images were embedded in written instructions with close attention to detail and ensuring simplistic directions for non-GIS users.</p>
+  </div>
+</section>
+
+<section class="proj-detail">
+  <div class="proj-page-star">
+    <div class="star-item" style="flex-direction:column; align-items:flex-start;">
+      <span class="star-label">Result</span>
+      <p>50% reduction in flush time. Two editable web maps for hydrant flushings and repairs. New simplified process to maintain current and quality data. Two departmental crews trained to use Field Maps Mobile. One hydrant repair dashboard designed for actionable decision-making.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 G. Harry Thurston · San Francisco, CA · <a href="mailto:g.harrythurston@gmail.com" style="color:inherit;">g.harrythurston@gmail.com</a></p>
+</footer>
+
+<style>
+  .replay-btn {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.55); color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 8px; padding: 0.5rem 1.2rem;
+    font-size: 0.9rem; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .replay-btn:hover { background: rgba(0,0,0,0.8); }
+</style>
+<!-- ── Workflow Modal ─────────────────────────────────────────── -->
+<div id="workflow-modal" onclick="closeWorkflowModal()" style="display:none; position:fixed; inset:0; z-index:999; background:rgba(0,0,0,0.85); align-items:center; justify-content:center; padding:2rem;">
+  <button onclick="closeWorkflowModal()" style="position:fixed; top:1.25rem; right:1.5rem; font-size:1.75rem; color:#a3d4d1; cursor:pointer; background:none; border:none; font-family:'Inter',sans-serif; z-index:1000;">✕</button>
+  <div onclick="event.stopPropagation()" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:16px; padding:1.5rem; backdrop-filter:blur(12px); width:100%;">
+    <div style="font-size:1rem; font-weight:500; color:rgba(255,255,255,0.85); text-align:center; margin-bottom:1rem; letter-spacing:0.03em;">Hydrant flushing &amp; repair workflow</div>
+    <svg width="auto" height="min(72vh, 640px)" viewBox="0 0 680 720" role="img" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Sans',sans-serif; display:block; margin:0 auto;">
+      <title>Hydrant flushing and repair workflow</title>
+      <defs>
+        <marker id="arrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+      <g><rect x="160" y="30" width="320" height="60" rx="8" fill="#2998ba" fill-opacity="0.25" stroke="#2998ba" stroke-opacity="0.6" stroke-width="0.5"/><text font-size="14" font-weight="500" x="320" y="50" text-anchor="middle" dominant-baseline="central" fill="#5dc4e0">Hydrant feature layer</text><text font-size="12" x="320" y="72" text-anchor="middle" dominant-baseline="central" fill="#2998ba">503 hydrants · base data</text></g>
+      <line x1="320" y1="90" x2="320" y2="134" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow2)"/>
+      <g><rect x="160" y="136" width="320" height="60" rx="8" fill="#2998ba" fill-opacity="0.25" stroke="#2998ba" stroke-opacity="0.6" stroke-width="0.5"/><text font-size="14" font-weight="500" x="320" y="156" text-anchor="middle" dominant-baseline="central" fill="#5dc4e0">Flushing web map</text><text font-size="12" x="320" y="178" text-anchor="middle" dominant-baseline="central" fill="#2998ba">Hydrant layer + inspection table (1:M)</text></g>
+      <line x1="320" y1="196" x2="320" y2="240" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow2)"/>
+      <g><rect x="160" y="242" width="320" height="60" rx="8" fill="#e67e22" fill-opacity="0.2" stroke="#e67e22" stroke-opacity="0.5" stroke-width="0.5"/><text font-size="14" font-weight="500" x="320" y="262" text-anchor="middle" dominant-baseline="central" fill="#f0a868">Field Maps forms</text><text font-size="12" x="320" y="284" text-anchor="middle" dominant-baseline="central" fill="#e67e22">Designed for inspection table</text></g>
+      <line x1="320" y1="302" x2="320" y2="346" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow2)"/>
+      <g><rect x="160" y="348" width="320" height="60" rx="8" fill="#e67e22" fill-opacity="0.2" stroke="#e67e22" stroke-opacity="0.5" stroke-width="0.5"/><text font-size="14" font-weight="500" x="320" y="368" text-anchor="middle" dominant-baseline="central" fill="#f0a868">Field crews submit flushing data</text><text font-size="12" x="320" y="390" text-anchor="middle" dominant-baseline="central" fill="#e67e22">Green points overlay red in real time</text></g>
+      <line x1="205" y1="408" x2="205" y2="458" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow2)"/>
+      <line x1="440" y1="408" x2="440" y2="458" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow2)"/>
+      <text font-size="12" x="173" y="440" text-anchor="end" dominant-baseline="central" fill="rgba(255,255,255,0.4)" font-style="italic">No damage</text>
+      <text font-size="12" x="472" y="440" text-anchor="start" dominant-baseline="central" fill="rgba(255,255,255,0.4)" font-style="italic">Damaged</text>
+      <g><rect x="120" y="460" width="170" height="44" rx="8" fill="#2998ba" fill-opacity="0.25" stroke="#2998ba" stroke-opacity="0.6" stroke-width="0.5"/><text font-size="14" font-weight="500" x="205" y="482" text-anchor="middle" dominant-baseline="central" fill="#5dc4e0">Flushing complete</text></g>
+      <path d="M120 482 L60 482 L60 58 L158 58" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow2)"/>
+      <text font-size="12" x="48" y="270" text-anchor="middle" dominant-baseline="central" fill="rgba(255,255,255,0.35)" font-style="italic" transform="rotate(-90, 48, 270)">updates layer</text>
+      <g><rect x="320" y="460" width="240" height="60" rx="8" fill="#e67e22" fill-opacity="0.2" stroke="#e67e22" stroke-opacity="0.5" stroke-width="0.5"/><text font-size="14" font-weight="500" x="440" y="480" text-anchor="middle" dominant-baseline="central" fill="#f0a868">Damage fields appear</text><text font-size="12" x="440" y="502" text-anchor="middle" dominant-baseline="central" fill="#e67e22">Type + repair priority</text></g>
+      <line x1="440" y1="520" x2="440" y2="564" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow2)"/>
+      <g><rect x="320" y="566" width="240" height="60" rx="8" fill="#2998ba" fill-opacity="0.25" stroke="#2998ba" stroke-opacity="0.6" stroke-width="0.5"/><text font-size="14" font-weight="500" x="440" y="586" text-anchor="middle" dominant-baseline="central" fill="#5dc4e0">Hydrant repair web map</text><text font-size="12" x="440" y="608" text-anchor="middle" dominant-baseline="central" fill="#2998ba">Symbolized by repair priority</text></g>
+      <line x1="440" y1="626" x2="440" y2="660" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow2)"/>
+      <g><rect x="320" y="662" width="240" height="44" rx="8" fill="#f1c40f" fill-opacity="0.2" stroke="#f1c40f" stroke-opacity="0.45" stroke-width="0.5"/><text font-size="14" font-weight="500" x="440" y="684" text-anchor="middle" dominant-baseline="central" fill="#f1c40f">Repairs dashboard</text></g>
+      <g transform="translate(395, 2)"><rect width="8" height="8" rx="2" fill="#2998ba" opacity="0.7"/><text font-size="12" x="12" y="8" fill="rgba(255,255,255,0.45)">GIS data</text><rect x="65" width="8" height="8" rx="2" fill="#e67e22" opacity="0.7"/><text font-size="12" x="77" y="8" fill="rgba(255,255,255,0.45)">Field</text><rect x="110" width="8" height="8" rx="2" fill="#f1c40f" opacity="0.7"/><text font-size="12" x="122" y="8" fill="rgba(255,255,255,0.45)">Mgmt</text></g>
+    </svg>
+  </div>
+</div>
+
+<script>
+  function openWorkflowModal() {
+    var m = document.getElementById('workflow-modal');
+    m.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeWorkflowModal() {
+    var m = document.getElementById('workflow-modal');
+    m.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeWorkflowModal();
+  });
+</script>
+
+<script>
+  [['vid1','replay1'],['vid2','replay2']].forEach(function(pair) {
+    var v = document.getElementById(pair[0]);
+    var btn = document.getElementById(pair[1]);
+    v.addEventListener('ended', function() { btn.style.display = 'block'; });
+  });
+  function replayVideo(vidId, btnId) {
+    var v = document.getElementById(vidId);
+    var btn = document.getElementById(btnId);
+    btn.style.display = 'none';
+    v.currentTime = 0;
+    v.play();
+  }
+</script>
+
+</body>
+</html>
