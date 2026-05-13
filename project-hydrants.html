@@ -173,9 +173,9 @@
 <!-- ── Workflow Modal ─────────────────────────────────────────── -->
 <div id="workflow-modal" onclick="closeWorkflowModal()" style="display:none; position:fixed; inset:0; z-index:999; background:rgba(0,0,0,0.85); align-items:center; justify-content:center; padding:2rem;">
   <button onclick="closeWorkflowModal()" style="position:fixed; top:1.25rem; right:1.5rem; font-size:1.75rem; color:#a3d4d1; cursor:pointer; background:none; border:none; font-family:'Inter',sans-serif; z-index:1000;">✕</button>
-  <div onclick="event.stopPropagation()" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:16px; padding:1.5rem; backdrop-filter:blur(12px); width:100%;">
+  <div onclick="event.stopPropagation()" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:16px; padding:1.5rem; backdrop-filter:blur(12px); width:100%; max-height:90vh; overflow-y:auto;">
     <div style="font-size:1rem; font-weight:500; color:rgba(255,255,255,0.85); text-align:center; margin-bottom:1rem; letter-spacing:0.03em;">Hydrant flushing &amp; repair workflow</div>
-    <svg width="auto" height="min(72vh, 640px)" viewBox="0 0 680 720" role="img" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Sans',sans-serif; display:block; margin:0 auto;">
+    <svg width="100%" height="auto" viewBox="0 0 680 720" role="img" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Sans',sans-serif; display:block; margin:0 auto;">
       <title>Hydrant flushing and repair workflow</title>
       <defs>
         <marker id="arrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
