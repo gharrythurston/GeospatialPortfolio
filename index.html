@@ -179,6 +179,12 @@
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
       .proj-cards { grid-template-columns: 1fr; }
     }
+    @media (max-width: 600px) {
+      #hero { min-height: 55vh; padding: 2rem 1.25rem; }
+      .hero-name { font-size: clamp(2rem, 10vw, 3rem); }
+      .featured-header { flex-direction: column; align-items: flex-start; margin-bottom: 1.5rem; }
+      #featured { padding-top: 2rem; padding-bottom: 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -187,6 +193,7 @@
 <!-- ── Nav ───────────────────────────────────────────────────── -->
 <nav>
   <div class="nav-logo">G. Harry <span>Thurston</span></div>
+  <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   <ul class="nav-links">
     <li><a href="index.html" class="active">Home</a></li>
     <li><a href="projects.html">Projects</a></li>
@@ -325,5 +332,6 @@
   });
 </script>
 
+<script src="nav.js"></script>
 </body>
 </html>

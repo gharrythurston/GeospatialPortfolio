@@ -27,6 +27,7 @@
 
 <nav>
   <div class="nav-logo">G. Harry <span>Thurston</span></div>
+  <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="projects.html">Projects</a></li>
@@ -53,7 +54,7 @@
         <button class="replay-btn" id="replay2" onclick="replayVideo('vid2','replay2')" style="display:none;">&#9654; Replay</button>
       </div>
     </div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:1.5rem; margin-bottom:1.5rem; align-items:center;">
+    <div class="proj-content-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:1.5rem; margin-bottom:1.5rem; align-items:center;">
       <div style="display:flex; flex-direction:column; gap:1.5rem;">
         <div class="star-item" style="flex-direction:column; align-items:flex-start;">
           <span class="star-label">Task</span>
@@ -236,5 +237,6 @@
   }
 </script>
 
+<script src="nav.js"></script>
 </body>
 </html>

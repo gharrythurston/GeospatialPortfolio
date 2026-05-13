@@ -247,4 +247,13 @@
 @media (max-width: 680px) {
   .proj-gallery { grid-template-columns: 1fr; }
   .proj-gallery.elk { grid-template-columns: 1fr 1fr; }
+  .proj-hero { padding: 5.5rem 1.25rem 1.5rem; }
+  .proj-page-title { font-size: 1.75rem !important; white-space: normal !important; }
+  .proj-media { padding: 0 1.25rem 3rem; }
+  .proj-detail { padding: 0 1.25rem 3rem; }
+  .proj-video-pair { grid-template-columns: 1fr !important; width: 100% !important; }
+  .proj-phone-row { grid-template-columns: 1fr 1fr !important; width: 100% !important; }
+  .proj-code { grid-template-columns: 1fr !important; }
+  .proj-content-grid { grid-template-columns: 1fr !important; }
+  .proj-page-star { max-width: 100%; }
 }

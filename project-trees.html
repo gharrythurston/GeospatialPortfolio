@@ -47,6 +47,7 @@
 
 <nav>
   <div class="nav-logo">G. Harry <span>Thurston</span></div>
+  <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="projects.html">Projects</a></li>
@@ -68,7 +69,7 @@
     <div class="proj-video-main">
       <video controls muted src="images/Maintdashtour.mp4"></video>
     </div>
-    <div style="display:grid; grid-template-columns:1fr 1.3fr; gap:2rem; margin-top:1.5rem; margin-bottom:1.5rem; align-items:stretch;">
+    <div class="proj-content-grid" style="display:grid; grid-template-columns:1fr 1.3fr; gap:2rem; margin-top:1.5rem; margin-bottom:1.5rem; align-items:stretch;">
       <div class="star-item" style="flex-direction:column; align-items:flex-start;">
         <span class="star-label">Process</span>
         <p style="font-size:1rem; color:var(--muted-hi); font-weight:300; line-height:1.75; margin:0;">I downloaded the data, cleaned it and split layers between planting sites and tree sites. I created three separate tables for inspection records, sidewalk assessments, and tree maintenance then connected them to the tree layer with one to many relationship classes. From here I configured forms in Field Maps Designer for each table to control data added, allowing workers to add updates from field work. At this point I still had to manually update tree edits using a field calculation script that I wrote in Arcade. In order for the process to be fully autonomous, I needed to rewrite the code in a notebook that could be scheduled.</p>
@@ -341,5 +342,6 @@ removed_trees = tree_lyr.<span class="fn">query</span>(
   });
 </script>
 
+<script src="nav.js"></script>
 </body>
 </html>
